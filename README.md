@@ -26,32 +26,46 @@ Akses URL    : http://54.169.31.229/whoami2
 Api Raw Data : http://54.169.31.229:8080/api/rawdata
 Dashboard    : http://54.169.31.229:8080/dashboard
 ```
-
-![Arsitektur Reverse Proxy demo]https://prnt.sc/pg6noa
+Berikut arsitektur reverse proxy
+![Arsitektuk Traefik 2 demo](https://user-images.githubusercontent.com/12096917/66353172-9d485500-e98b-11e9-9f89-5233d857e888.JPG)
 
 Cara menjalankan demo:
 1. Buat network overlay baru di Swarm dengan nama traefik-public
-> $ docker network create --driver=overlay traefik-public
+```
+$ docker network create --driver=overlay traefik-public
+```
 
 2. Deploy stack service traefik 2 memakai yml
-> $ docker stack deploy -c traefik2.yml demo
+```
+$ docker stack deploy -c traefik2.yml demo
+```
 
 3. Deploy stack service aplikasi memakai yml juga
-> $ docker stack deploy -c app.yml demo
+```
+$ docker stack deploy -c app.yml demo
+```
 
 4. Cek docker service
-> $ docker service ls
+```
+$ docker service ls
+```
 
 5. Buka situs di web browser menggunakan IP Public/Domain
+```
 - http://54.169.31.229/
 - http://54.169.31.229/whoami
 - http://54.169.31.229/whoami2
+```
 
 6. Bersihkan demo dengan cara remove semua service yang ada
-> $ docker service rm $(docker service ls -q)
+```
+$ docker service rm $(docker service ls -q)
+```
 
 7. Bersihkan network 
-> $ docker network rm traefik-public 
+```
+$ docker network rm traefik-public 
+```
 
 
 
