@@ -1,26 +1,26 @@
 # Traefik 2 Reverse Proxy dengan Rule Path di Docker Swarm
 
-Demo Traefik 2 sebagai Reverse Proxy di Docker Swarm menggunakan cloud dengan contoh IP publik `54.169.31.229`, yang dapat dipakai untuk mengakses situs dari internet. Bisa juga mengganti IP publik dengan menggunakan Domain (domainku.com) sebagai Host rule
+Demo Traefik 2 sebagai Reverse Proxy di Docker Swarm menggunakan cloud dengan contoh IP publik `54.169.31.229`, yang dapat dipakai untuk mengakses situs dari internet. Bisa juga mengganti IP publik dengan menggunakan Domain (misal `domainku.com`) sebagai Host rule
 
 Berikut contoh dengan menggunakan Swarm untuk menjalankan Traefik 2 sebagai service reverse proxy dan 3 service lainnya, yaitu:
 ```
 1.Hello World service
 Docker Image : tutum/hello-world
 Rule Path    : /
-Port         : 80
-Akses URL    : http://54.169.31.229/
+Akses Port   : 80
+Akses URL    : http://54.169.31.229/ (demo URL)
 
 2.Whoami service
 Docker Image : jwilder/whoami
 Rule Path    : /whoami
-Port         : 80
-Akses URL    : http://54.169.31.229/whoami
+Akses Port   : 80
+Akses URL    : http://54.169.31.229/whoami (demo URL)
 
 3.Whoami service
 Docker Image : containous/whoami
 Rule Path    : /whoami2
-Port         : 80
-Akses URL    : http://54.169.31.229/whoami2
+Akses Port   : 80
+Akses URL    : http://54.169.31.229/whoami2 (demo URL)
 
 4.Traefik 2
 Api Raw Data : http://54.169.31.229:8080/api/rawdata
@@ -56,18 +56,32 @@ $ docker service ls
 - http://54.169.31.229/whoami
 - http://54.169.31.229/whoami2
 ```
+- Whoami2
+![Whoami2](https://user-images.githubusercontent.com/12096917/66353931-7b4fd200-e98d-11e9-8953-1edfd87b5002.png)
 
-6. Bersihkan demo dengan cara remove semua service yang ada
+6. Buka Traefik API raw data URL 
+`http://54.169.31.229:8080/api/rawdata`
+- Raw data
+![Raw data](https://user-images.githubusercontent.com/12096917/66353814-290eb100-e98d-11e9-8b47-c8cc2354182f.png)
+
+- Router
+![Router](https://user-images.githubusercontent.com/12096917/66353656-bf8ea280-e98c-11e9-9b0d-7e1a4f6f07ae.png)
+
+- Service
+![Service](https://user-images.githubusercontent.com/12096917/66353756-04b2d480-e98d-11e9-820e-9b524c40af5a.png)
+
+7. Bersihkan demo dengan cara remove semua service yang ada
 ```
 $ docker service rm $(docker service ls -q)
 ```
 
-7. Bersihkan network 
+8. Bersihkan network 
 ```
 $ docker network rm traefik-public 
 ```
 
-
+Semoga demo ini bisa membantu bagi yang sedang memcoba Traefik 2 di Swarm
+Terima kasih.
 
 
 
