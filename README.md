@@ -123,7 +123,7 @@ https://bit.ly/30TAD6o
 
 
 Referensi: \
-Traefik 2 - https://docs.traefik.io/v2.0/ 
+Traefik 2 - https://docs.traefik.io/v2.0/  
 Docker swarm - https://docs.docker.com/engine/swarm/ 
 
 
