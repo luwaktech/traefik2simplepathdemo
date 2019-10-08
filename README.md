@@ -54,11 +54,13 @@ $ curl https://raw.githubusercontent.com/luwaktech/traefik2simplepathdemo/master
 Ubah menggunakan IP publik server atau bisa juga diubah menggunakan hostname, misal `domainku.com`
 ```
 $ vi app.yml
-
-- traefik.http.routers.helloworld.rule=Host(`54.169.31.229`)
-- traefik.http.routers.whoami.rule=Host(`54.169.31.229`) && Path(`/whoami`)
-- traefik.http.routers.whoami2.rule=Host(`54.169.31.229`) && Path(`/whoami2`)
 ```
+
+Contoh:
+- traefik.http.routers.helloworld.rule=Host(**`54.169.31.229`**)
+- traefik.http.routers.whoami.rule=Host(**`54.169.31.229`**) && Path(`/whoami`)
+- traefik.http.routers.whoami2.rule=Host(**`54.169.31.229`**) && Path(`/whoami2`)
+
 
 4. Deploy stack service traefik 2 memakai yml
 ```
