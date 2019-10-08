@@ -29,28 +29,53 @@ Dashboard    : http://54.169.31.229:8080/dashboard
 Berikut arsitektur reverse proxy
 ![Arsitektuk Traefik 2 demo](https://user-images.githubusercontent.com/12096917/66353172-9d485500-e98b-11e9-9f89-5233d857e888.JPG)
 
-Cara menjalankan demo:
+**Prasyarat**:
+1. Demo ini dijalankan di Ubuntu
+2. Docker sudah terinstall
+3. Docker swarm sudah terbentuk
+Jika belum, maka bisa buat swarm dengan command dibawah ini:
+```
+$ docker swarm init
+```
+
+**Cara menjalankan demo**:
 1. Buat network overlay baru di Swarm dengan nama traefik-public
 ```
 $ docker network create --driver=overlay traefik-public
 ```
 
-2. Deploy stack service traefik 2 memakai yml
+2. Unduh file konfigurasi yang dibutuhkan
+```
+$ curl https://raw.githubusercontent.com/luwaktech/traefik2simplepathdemo/master/traefik2.yml > traefik2.yml
+$ curl https://raw.githubusercontent.com/luwaktech/traefik2simplepathdemo/master/app.yml > app.yml
+```
+
+3. Ubah host `54.169.31.229` pada file app.yml
+Ubah menggunakan IP publik server atau bisa juga diubah menggunakan hostname, misal `domainku.com`
+```
+$ vi app.yml
+
+- traefik.http.routers.helloworld.rule=Host(`54.169.31.229`)
+- traefik.http.routers.whoami.rule=Host(`54.169.31.229`) && Path(`/whoami`)
+- traefik.http.routers.whoami2.rule=Host(`54.169.31.229`) && Path(`/whoami2`)
+```
+
+4. Deploy stack service traefik 2 memakai yml
 ```
 $ docker stack deploy -c traefik2.yml demo
 ```
 
-3. Deploy stack service aplikasi memakai yml juga
+5. Deploy stack service aplikasi memakai yml juga
 ```
 $ docker stack deploy -c app.yml demo
 ```
 
-4. Cek docker service
+6. Cek docker service
 ```
 $ docker service ls
 ```
 
-5. Buka situs di web browser menggunakan IP Public/Domain
+7. Buka situs di web browser menggunakan IP Public/Domain
 ```
 - http://54.169.31.229/
 - http://54.169.31.229/whoami
@@ -59,7 +84,7 @@ $ docker service ls
 - Whoami2
 ![Whoami2](https://user-images.githubusercontent.com/12096917/66353931-7b4fd200-e98d-11e9-8953-1edfd87b5002.png)
 
-6. Buka Traefik API raw data URL 
+8. Buka Traefik API raw data URL 
 `http://54.169.31.229:8080/api/rawdata`
 - Raw data
 ![Raw data](https://user-images.githubusercontent.com/12096917/66353814-290eb100-e98d-11e9-8b47-c8cc2354182f.png)
@@ -70,17 +95,28 @@ $ docker service ls
 - Service
 ![Service](https://user-images.githubusercontent.com/12096917/66353756-04b2d480-e98d-11e9-820e-9b524c40af5a.png)
 
-7. Bersihkan demo dengan cara remove semua service yang ada
+9. Scale service whoami2 menjadi 3 instance
+```
+$ docker service scale demo_whoami2=3
+```
+Coba akses `http://54.169.31.229/whoami2` beberapa kali, terlihat bahwa IP nya akan berubah karena adanya load balancing dari Traefik 2
+
+10. Bersihkan demo dengan cara remove semua service yang ada
 ```
 $ docker service rm $(docker service ls -q)
 ```
 
-8. Bersihkan network 
+11. Bersihkan network 
 ```
 $ docker network rm traefik-public 
 ```
 
-Semoga demo ini bisa membantu bagi yang sedang memcoba Traefik 2 di Swarm
+12. Leave swarm
+```
+$ docker swarm leave --force
+```
+
+Semoga bisa membantu.\
 Terima kasih.
 
 
