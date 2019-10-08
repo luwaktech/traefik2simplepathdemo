@@ -118,10 +118,18 @@ $ docker network rm traefik-public
 $ docker swarm leave --force
 ```
 
+Youtube demo (versi video)
+https://www.youtube.com/watch?v=2s7Bh9hljSU&t=352s
+
+
+Referensi:
+Traefik 2 - https://docs.traefik.io/v2.0/
+Docker swarm - https://docs.docker.com/engine/swarm/
+
+
 Semoga bisa membantu.\
 Terima kasih.
-
-
+sibeeni
 
 
 
