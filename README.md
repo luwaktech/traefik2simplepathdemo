@@ -32,7 +32,7 @@ Berikut arsitektur reverse proxy
 **Prasyarat**:
 1. Demo ini dijalankan di Ubuntu
 2. Docker sudah terinstall
-3. Docker swarm sudah terbentuk
+3. Docker swarm sudah terbentuk\
 Jika belum, maka bisa buat swarm dengan command dibawah ini:
 ```
 $ docker swarm init
@@ -50,7 +50,7 @@ $ curl https://raw.githubusercontent.com/luwaktech/traefik2simplepathdemo/master
 $ curl https://raw.githubusercontent.com/luwaktech/traefik2simplepathdemo/master/app.yml > app.yml
 ```
 
-3. Ubah host `54.169.31.229` pada file app.yml
+3. Ubah host `54.169.31.229` pada file app.yml\
 Ubah menggunakan IP publik server atau bisa juga diubah menggunakan hostname, misal `domainku.com`
 ```
 $ vi app.yml
