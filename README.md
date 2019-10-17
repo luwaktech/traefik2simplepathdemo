@@ -118,6 +118,22 @@ $ docker network rm traefik-public
 $ docker swarm leave --force
 ```
 
+**Penjelasan**
+> Traefik2.yml
+- Jika ingin menjalan traefik dibelakang nginx/haproxy, maka perlu mengubah port 80:80 menjadi `proxy port` pada docker, seperti dibawah ini:
+```
+    ports:
+      # The HTTP port
+      #- "80:80"
+      # The HTTP port as proxy (jika dipakai dibelakang nginx/haproxy)
+      - target: 80
+        published: 80
+        mode: host
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+```
+Dengan mode:host, hal ini akan membuat docker instance untuk listen di host port
+
 Youtube demo (versi video)  \
 https://bit.ly/30TAD6o  
 
